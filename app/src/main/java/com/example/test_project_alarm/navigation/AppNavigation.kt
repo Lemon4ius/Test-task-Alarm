@@ -9,8 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.test_project_alarm.home_screen.HomeScreen
 import com.example.test_project_alarm.map_screen.MapScreen
-import com.example.test_project_alarm.photo_list.PhotoListScreen
-import com.example.test_project_alarm.setting_screen.SettingScreen
+import com.example.test_project_alarm.screens.photo_list.PhotoListScreen
+import com.example.test_project_alarm.screens.setting_screen.SettingScreen
 
 sealed class Screen(val route: String) {
     data object Home : Screen("home")

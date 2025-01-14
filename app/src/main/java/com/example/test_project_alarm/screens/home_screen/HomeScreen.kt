@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -45,21 +46,21 @@ import com.google.accompanist.permissions.shouldShowRationale
 import java.io.File
 import java.util.Objects
 
+
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomeScreen() {
     val context = LocalContext.current
     val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
-
     val capturedPhotoUri = remember { mutableStateOf<Uri>(Uri.EMPTY) }
 
-    val file = File(context.cacheDir, "temp_image_${System.currentTimeMillis()}.jpg")
+
+    val file = File(context.cacheDir, "/temp_image_${System.currentTimeMillis()}.jpg")
     val photoUri = FileProvider.getUriForFile(
         Objects.requireNonNull(context),
         "${context.packageName}.provider", file
     )
-
     val cameraLaunch =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.TakePicture()) { success ->
             if (success) {

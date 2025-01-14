@@ -1,4 +1,4 @@
-package com.example.test_project_alarm.photo_list
+package com.example.test_project_alarm.screens.photo_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
