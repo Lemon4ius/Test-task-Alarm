@@ -15,10 +15,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.test_project_alarm.ui.theme.Test_Project_AlarmTheme
 
@@ -59,7 +58,7 @@ val navItemList = mutableListOf(
 @Composable
 fun AppNavigationBar(navHostController: NavHostController) {
 
-    val selectedItem = remember {
+    val selectedItem = rememberSaveable {
         mutableIntStateOf(0)
     }
     NavigationBar {

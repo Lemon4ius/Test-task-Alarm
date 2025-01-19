@@ -21,7 +21,7 @@ sealed class Screen(val route: String) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NavigationStack(navHostController: NavHostController, modifier: Modifier) {
+fun NavigationStack(navHostController: NavHostController, modifier: Modifier,) {
     NavHost(navController = navHostController, startDestination = Screen.Home.route, modifier = modifier) {
         composable(route = Screen.Home.route) {
             HomeScreen()

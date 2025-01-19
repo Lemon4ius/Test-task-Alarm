@@ -21,21 +21,52 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.test_project_alarm.shared_pref.DataStoreConstant
+import com.example.test_project_alarm.shared_pref.DataStoreProvider
 import com.example.test_project_alarm.ui.theme.Test_Project_AlarmTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun SettingScreen() {
-    val pathFolderToSave = remember {
-        mutableStateOf(Uri.EMPTY)
+    val context = LocalContext.current
+    var currentPath = Uri.EMPTY
+    val pathView = rememberSaveable {
+        mutableStateOf("")
+    }
+    LaunchedEffect(key1 = Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val pathStore =
+                DataStoreProvider(context).readStringValue(DataStoreConstant.PHOTO_PATH.name)
+            withContext(Dispatchers.Main) {
+                if (pathStore == DataStoreConstant.EMPTY_PATH.name) {
+                    pathView.value = context.filesDir.toString()
+                } else {
+                    pathView.value = Uri.parse(pathStore).path.toString()
+                }
+                currentPath = Uri.parse(pathStore)
+            }
+
+        }
     }
     val directoryLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocumentTree()) {
-            Log.d("Directory", it.toString())
-            pathFolderToSave.value = it
+            currentPath = it
+            pathView.value = it?.path.toString()
+            CoroutineScope(Dispatchers.IO).launch {
+                DataStoreProvider(context).saveStringValue(
+                    DataStoreConstant.PHOTO_PATH.name,
+                    currentPath.toString()
+                )
+            }
         }
 
     Scaffold(
@@ -48,12 +79,11 @@ fun SettingScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             OutlinedTextField(
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(horizontal = 50.dp),
-                label = { Text("Путь") },
+                label = { Text("Укажите путь") },
                 trailingIcon = {
                     Icon(
                         imageVector = Icons.Filled.LocationOn,
@@ -61,17 +91,17 @@ fun SettingScreen() {
                     )
                 },
                 singleLine = true,
-                value = "${pathFolderToSave.value.path}",
+                value = pathView.value.split(":").last(),
                 onValueChange = {},
                 readOnly = true,
                 enabled = true,
                 interactionSource = remember {
                     MutableInteractionSource()
                 }.also { interactionSource ->
-                    LaunchedEffect(interactionSource) {
-                        interactionSource.interactions.collect {
-                            if (it is PressInteraction.Release) {
-                                directoryLauncher.launch(pathFolderToSave.value)
+                    LaunchedEffect(Unit) {
+                        interactionSource.interactions.collect { interaction ->
+                            if (interaction is PressInteraction.Release) {
+                                directoryLauncher.launch(currentPath)
                             }
                         }
                     }

@@ -1,4 +1,4 @@
-package com.example.test_project_alarm.main_screen
+package com.example.test_project_alarm
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.test_project_alarm.bottom_nav_bar.AppNavigationBar
 import com.example.test_project_alarm.navigation.NavigationStack

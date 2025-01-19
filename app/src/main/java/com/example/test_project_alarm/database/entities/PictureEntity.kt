@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 data class PictureEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val name: String,
-    val date: Int,
+    val date: Long,
+    val uri: String,
     val latitude: Double,
     val longitude: Double
 )

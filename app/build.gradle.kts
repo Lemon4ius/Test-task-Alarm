@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.test_project_alarm"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.test_project_alarm"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -51,12 +51,19 @@ android {
 }
 
 dependencies {
+    //google maps
+    implementation(libs.maps.compose)
+
+    //Service location
+    implementation(libs.play.services.location)
+    //DataStore
+    implementation(libs.androidx.datastore.preferences)
     //Room
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.documentfile)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
-
     implementation(libs.androidx.navigation.compose)
     implementation(libs.io.coil.kt.coil)
     implementation(libs.accompanist.permissions)
