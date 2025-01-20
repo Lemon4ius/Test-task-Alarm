@@ -33,7 +33,7 @@ val navItemList = mutableListOf(
         name = "Начало",
         selectedItem = Icons.Rounded.Home,
         unselectedItem = Icons.Outlined.Home,
-        screenName ="home"
+        screenName = "home"
     ),
     BottomNavItem(
         name = "Все фото",
@@ -56,7 +56,7 @@ val navItemList = mutableListOf(
 )
 
 @Composable
-fun AppNavigationBar(navHostController: NavHostController) {
+fun AppNavigationBar(navHostController: NavHostController?) {
 
     val selectedItem = rememberSaveable {
         mutableIntStateOf(0)
@@ -67,7 +67,7 @@ fun AppNavigationBar(navHostController: NavHostController) {
                 selected = selectedItem.intValue == index,
                 onClick = {
                     selectedItem.intValue = index
-                    navHostController.navigate(item.screenName)
+                    navHostController?.navigate(item.screenName)
                 },
                 label = { Text(text = item.name) },
                 icon = {
@@ -86,6 +86,6 @@ fun AppNavigationBar(navHostController: NavHostController) {
 @Composable
 fun PreviewNavBar() {
     Test_Project_AlarmTheme {
-//        AppNavigationBar()
+        AppNavigationBar(null)
     }
 }

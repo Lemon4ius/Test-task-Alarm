@@ -17,11 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.test_project_alarm.database.entities.PictureEntity
-import com.example.test_project_alarm.ui.theme.Test_Project_AlarmTheme
 import com.example.test_project_alarm.utils.ImageDialog
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -73,13 +71,5 @@ fun PhotoElement(pictureEntity: PictureEntity) {
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewPhotoElement() {
-    Test_Project_AlarmTheme {
-//        PhotoElement(null, null)
     }
 }

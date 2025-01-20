@@ -10,13 +10,12 @@ import java.util.Locale
 fun Context.createImageFile(): File {
     val timeStamp =
         SimpleDateFormat("yyyyMMdd_HHmmss", Locale.forLanguageTag("ru_Ru")).format(Date())
-    val imageFileName = timeStamp
     val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     if (storageDir?.exists() == false) {
         storageDir.mkdirs()
     }
     return File.createTempFile(
-        imageFileName,
+        timeStamp,
         ".jpg",
         storageDir
     )

@@ -1,7 +1,6 @@
 package com.example.test_project_alarm.screens.setting_screen
 
 import android.net.Uri
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -54,7 +53,6 @@ fun SettingScreen() {
                 }
                 currentPath = Uri.parse(pathStore)
             }
-
         }
     }
     val directoryLauncher =

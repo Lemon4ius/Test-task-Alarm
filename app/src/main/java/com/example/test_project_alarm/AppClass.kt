@@ -7,15 +7,15 @@ class AppClass : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        INSTANCE=this
+        INSTANCE = this
         initRoomDB()
     }
 
-    fun initRoomDB(){
+    private fun initRoomDB() {
         DataBaseProvider.applicationContext = applicationContext
     }
 
-    companion object{
+    companion object {
 
         internal lateinit var INSTANCE: AppClass
             private set

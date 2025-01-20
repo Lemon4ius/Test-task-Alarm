@@ -47,7 +47,6 @@ fun PhotoListScreen() {
     val defaultPictureEntityList = remember { mutableListOf<PictureEntity>() }
     var isFilterUse by rememberSaveable { mutableStateOf(false) }
     val photoList = remember { mutableStateListOf<PictureEntity>() }
-
     var isDatePickerShow by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         getPicture(defaultPictureEntityList, photoList)
